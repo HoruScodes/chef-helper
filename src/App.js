@@ -6,6 +6,8 @@ import About from "./components/About";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import ItemManagement from "./components/ItemManagement";
+import MenuManagement from "./components/MenuManagement";
 
 const App = () => {
   return (
@@ -16,6 +18,8 @@ const App = () => {
         <Route path="/about" component={About} />
         <Route path="/join" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/itemManagement" component={ItemManagement} />
+        <Route path="/menuManagement" component={MenuManagement} />
       </Switch>
       <Footer />
     </Router>

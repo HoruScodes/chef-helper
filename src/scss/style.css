@@ -624,7 +624,7 @@ h6 {
 @media (min-width: 64em) {
   .footer__cta {
     grid-area: cta;
-    text-align: right;
+    text-align: left;
     -ms-grid-column-align: end;
         justify-self: end;
   }
@@ -863,5 +863,58 @@ h6 {
   padding: 0.5em;
   color: inherit;
   border-radius: 5px;
+}
+
+.addItem__section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding: 2rem 2rem;
+}
+
+.addItem__input {
+  margin-bottom: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #1b2d45;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.addItem__input:last-child {
+  margin-bottom: 0;
+}
+
+.addItem__input label {
+  font-weight: bold;
+  color: #00214d;
+}
+
+.addItem__input input {
+  outline: none;
+  background: none;
+  border: 1px solid #3f3d56;
+  font-size: 1em;
+  padding: 0.5em;
+  color: inherit;
+  border-radius: 5px;
+}
+
+#itemError {
+  padding-left: 2rem;
+}
+
+#itemTitle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 /*# sourceMappingURL=style.css.map */

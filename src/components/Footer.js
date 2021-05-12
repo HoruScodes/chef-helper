@@ -69,7 +69,7 @@ const Footer = () => {
         </div>
 
         <div className="footer__cta">
-          <a href="#" className="button">
+          <a href="mailto:pipaliya1997@gmail.com" className="button">
             Say Hi!
           </a>
         </div>

@@ -30,6 +30,8 @@ const Header = () => {
           <a href="/">Home</a>
           <a href="/about">About</a>
           <a href="/contact">Contact</a>
+          <a href="/itemManagement">Item Management</a>
+          <a href="/menuManagement">Menu Management</a>
         </div>
 
         <a href="/join" className={`button header__cta hide-for-mobile`}>

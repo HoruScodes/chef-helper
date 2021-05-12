@@ -3,7 +3,7 @@ import register from "../Media/register.svg";
 
 const Register = () => {
   return (
-    <section className={`register container-pall`}>
+    <section className={`register container`}>
       <section className={`register__content`}>
         <div>
           <img src={register} alt="register"></img>

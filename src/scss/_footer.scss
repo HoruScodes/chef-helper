@@ -105,7 +105,7 @@
   &__cta {
     @include breakpoint-up(large) {
       grid-area: cta;
-      text-align: right;
+      text-align: left;
       justify-self: end;
     }
 
