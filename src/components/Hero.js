@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const Hero = () => {
+const Hero = (props) => {
   return (
     <section className={`hero container`}>
       <div className="hero__image"></div>
@@ -11,9 +11,15 @@ const Hero = () => {
           This "Restaurant Management System" is aimed to break the barrier
           restaurant workers are facing.
         </p>
-        <a href="/join" className={`button header__cta`}>
-          Join
-        </a>
+        {props.user ? (
+          <a href="/order" className={`button header__cta`}>
+            Dashboard
+          </a>
+        ) : (
+          <a href="/join" className={`button header__cta`}>
+            Join
+          </a>
+        )}
       </div>
     </section>
   );

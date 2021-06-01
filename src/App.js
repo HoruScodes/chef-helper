@@ -8,28 +8,43 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import ItemManagement from "./components/ItemManagement";
 import MenuManagement from "./components/MenuManagement";
-
+import MenuItem from "./components/MenuItem";
+import Order from "./components/Order";
+import { useEffect, useState } from "react";
+import { getCookie } from "./api/api";
 const App = () => {
+  const [name, setName] = useState("");
+  const [user, setUser] = useState();
+  useEffect(() => {
+    (async () => {
+      const userData = await JSON.parse(getCookie("userData"));
+      setUser(userData);
+      setName(userData.name);
+    })();
+  }, []);
+
   return (
     <Router>
-      <Header />
+      <Header user={name} />
       <Switch>
-        <Route path="/" component={Home} exact />
+        <Route path="/" render={() => <Home user={name} />} exact />
         <Route path="/about" component={About} />
-        <Route path="/join" component={Login} />
+        <Route path="/join" component={() => <Login setusername={setName} />} />
         <Route path="/register" component={Register} />
         <Route path="/itemManagement" component={ItemManagement} />
         <Route path="/menuManagement" component={MenuManagement} />
+        <Route path="/menuItem" render={(props) => <MenuItem {...props} />} />
+        <Route path="/order" component={Order} />
       </Switch>
       <Footer />
     </Router>
   );
 };
 
-const Home = () => {
+const Home = (props) => {
   return (
     <>
-      <Hero />
+      <Hero user={props.user} />
       <Features />
     </>
   );

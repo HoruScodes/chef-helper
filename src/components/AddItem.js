@@ -14,6 +14,7 @@ const AddItem = () => {
     instructions: "",
     ingredients: [],
     photo: "",
+    type: "",
   });
 
   const handleChangeIngredient = async (e) => {
@@ -29,7 +30,6 @@ const AddItem = () => {
   };
 
   const handlePhoto = (e) => {
-    console.log(e.target.name);
     setNewItem({ ...newItem, [e.target.name]: e.target.files[0] });
   };
 
@@ -52,11 +52,8 @@ const AddItem = () => {
     formData.append("price", newItem.price);
     formData.append("photo", newItem.photo);
     formData.append("instructions", newItem.instructions);
-    formData.append("ingredients", JSON.stringify(newItem.ingredients));
-
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
+    formData.append("ingredients", newItem.ingredients);
+    formData.append("type", newItem.type);
     const saveItemRes = await addMenuItem(formData);
   };
 
@@ -64,7 +61,6 @@ const AddItem = () => {
     <div className="menuItem">
       <h1>Create Item For the Menu</h1>
       <div className="menuItem__form">
-        <h3>Create Item for the Menu</h3>
         <div className={`menuItem__name`}>
           <label>Name</label>
           <input
@@ -111,6 +107,16 @@ const AddItem = () => {
             value={newItem.instructions}
             onChange={handleChange}
             name="instructions"
+            type="text"
+          />
+        </div>
+
+        <div className={`menuItem__name`}>
+          <label>Item Type : </label>
+          <input
+            value={newItem.type}
+            onChange={handleChange}
+            name="type"
             type="text"
           />
         </div>

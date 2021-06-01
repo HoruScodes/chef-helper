@@ -1,9 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import logo from "../Media/logo.png";
+import { eraseCookie } from "../api/api";
+import { useHistory } from "react-router";
 
-const Header = () => {
+const Header = ({ user }) => {
+  const history = useHistory();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+
+  const handleLogout = () => {
+    eraseCookie("userData");
+    setRedirect(true);
+    history.push("/");
+  };
+
+  if (redirect) {
+    history.go(0);
+  }
 
   return (
     <header className={menuOpen ? `header open` : `header`}>
@@ -26,17 +40,34 @@ const Header = () => {
           <span></span>
         </a>
 
-        <div className={`header__links hide-for-mobile`}>
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/contact">Contact</a>
-          <a href="/itemManagement">Item Management</a>
-          <a href="/menuManagement">Menu Management</a>
-        </div>
-
-        <a href="/join" className={`button header__cta hide-for-mobile`}>
-          Join
-        </a>
+        {user ? (
+          <div className={`header__links hide-for-mobile`}>
+            <a href="/">Home</a>
+            <a href="/order">Create Order</a>
+            <a href="/itemManagement">Item Management</a>
+            <a href="/menuManagement">Menu Management</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+          </div>
+        ) : (
+          <div className={`header__links hide-for-mobile`}>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+          </div>
+        )}
+        {user ? (
+          <a
+            onClick={handleLogout}
+            className={`button header__cta hide-for-mobile`}
+          >
+            Log out
+          </a>
+        ) : (
+          <a href="/join" className={`button header__cta hide-for-mobile`}>
+            Log In
+          </a>
+        )}
       </nav>
 
       <div className={menuOpen ? `header__menu` : `has-fade`}>

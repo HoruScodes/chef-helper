@@ -3,11 +3,10 @@ import React, { useState } from "react";
 const Table = ({ data: { data } }) => {
   const handleClick = (e) => {
     e.preventDefault();
-    console.log(e.target.id);
   };
   return (
-    <table className={`items container container-pall`}>
-      <tr className="items__header">
+    <table className={`wrapper container container-pall`}>
+      <tr className={`row header green`}>
         <th>id</th>
         <th>name</th>
         <th>Prepration Time</th>
@@ -17,12 +16,12 @@ const Table = ({ data: { data } }) => {
       {data &&
         data.map((elem) => {
           return (
-            <tr className="items__row">
-              <td className="items__name">{elem["id"]}</td>
-              <td className="items__name">{elem["name"]}</td>
-              <td className="items__name">{elem["timeToPrep"]}</td>
-              <td className="items__name">{elem["type"]}</td>
-              <td className="items__name">
+            <tr className="row">
+              <td className="cell">{elem["id"]}</td>
+              <td className="cell">{elem["name"]}</td>
+              <td className="cell">{elem["timeToPrep"]}</td>
+              <td className="cell">{elem["type"]}</td>
+              <td className="cell">
                 <button id={elem["_id"]} onClick={handleClick}>
                   Delete This Item
                 </button>

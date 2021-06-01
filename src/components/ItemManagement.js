@@ -56,10 +56,8 @@ const ItemManagement = () => {
       }
 
       if (error.length === 0) {
-        console.log(data);
         //add item to db
         const res = await addItem(data);
-        console.log(res);
       }
     }
   };

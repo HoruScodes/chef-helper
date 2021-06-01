@@ -1,41 +1,16 @@
 import React, { useState } from "react";
-import { loginUser } from "../api/api";
+import { loginUser, createCookieInHour, getCookie } from "../api/api";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Redirect } from "react-router";
+import { useHistory } from "react-router";
 
-const Login = () => {
+const Login = ({ setusername }) => {
+  const history = useHistory();
   const [errorMessage, setErrorMessage] = useState("");
-  const [user, setUser] = useState();
-  const [loginData, setLoginData] = useState({});
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLoginData({ ...loginData, [name]: value });
-  };
-
-  const callloginUserApi = async (e) => {
-    e.preventDefault();
-
-    const loginApi = async () => {
-      const data = await loginUser(loginData.email, loginData.password);
-      if (data.data) {
-        //login success
-        console.log(data.data);
-        setUser(data.data);
-        localStorage.setItem("user", data.data);
-        setErrorMessage("");
-      }
-
-      if (data.response) {
-        //error
-        setErrorMessage(data.response.data);
-      } else {
-        setErrorMessage("");
-      }
-    };
-    loginApi();
-  };
-
-  if (user) {
-    return <div>User Is Logged In!</div>;
+  const [redirect, setRedirect] = useState(false);
+  if (redirect) {
+    history.push("/");
+    history.go(0);
   }
 
   return (
@@ -50,30 +25,88 @@ const Login = () => {
           </h1>
         </div>
       </section>
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        validate={(values) => {
+          const errors = {};
+          if (!values.email) {
+            errors.email = "Required";
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          ) {
+            errors.email = "Invalid email address";
+          }
+          return errors;
+        }}
+        onSubmit={async (values, { setSubmitting }) => {
+          const response = await loginUser(values.email, values.password);
+          if (response && response.status === 200) {
+            createCookieInHour("userData", JSON.stringify(response.data));
+            setRedirect(true);
+          } else if (response.response) {
+            const res = response.response;
+            if (res.status === 401) {
+              setErrorMessage(res.data);
+            }
+          }
+        }}
+      >
+        {({ isSubmitting }) => (
+          <Form className="login__form">
+            <div className="login__input">
+              <label>Email:</label>
+              <Field type="email" name="email" />
+              <ErrorMessage name="email" component="div" />
+            </div>
+            <div className="login__input">
+              <label>Password:</label>
+              <Field type="password" name="password" />
+              <ErrorMessage name="password" component="div" />
+            </div>
 
-      <section className={`login__section`}>
-        <form className="login__form">
-          <div className="login__input">
-            <label>Email:</label>
-            <input onChange={handleChange} type="email"></input>
-          </div>
-          <div className="login__input">
-            <label>Password:</label>
-            <input onChange={handleChange} type="password"></input>
-          </div>
-          <div className="login__input">
-            <button type="submit" onClick={callloginUserApi} className="btn">
-              Login
+            <button
+              className="login__input"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Log in
             </button>
-          </div>
-          <div className="login__input">
-            <a href="/register">New User/ Register</a>
-          </div>
-          <label>{errorMessage}</label>
-        </form>
-      </section>
+            <ErrorMessage name="errors" component="div" />
+            <div className="login__input">
+              <a href="/register">New User/ Register</a>
+            </div>
+            <label>{errorMessage}</label>
+          </Form>
+        )}
+      </Formik>
     </section>
   );
 };
 
 export default Login;
+
+{
+  /* <form className="login__form">
+            <div className="login__input">
+              <label>Email:</label>
+              <input onChange={handleChange} name="email" type="email"></input>
+            </div>
+            <div className="login__input">
+              <label>Password:</label>
+              <input
+                onChange={handleChange}
+                name="password"
+                type="password"
+              ></input>
+            </div>
+            <div className="login__input">
+              <button type="submit" onClick={callloginUserApi} className="btn">
+                Login
+              </button>
+            </div>
+            <div className="login__input">
+              <a href="/register">New User/ Register</a>
+            </div>
+            <label>{errorMessage}</label>
+          </form> */
+}
