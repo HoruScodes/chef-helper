@@ -12,6 +12,7 @@ import MenuItem from "./components/MenuItem";
 import Order from "./components/Order";
 import { useEffect, useState } from "react";
 import { getCookie } from "./api/api";
+import LiveOrders from "./components/LiveOrders";
 const App = () => {
   const [name, setName] = useState("");
   const [user, setUser] = useState();
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/menuManagement" component={MenuManagement} />
         <Route path="/menuItem" render={(props) => <MenuItem {...props} />} />
         <Route path="/order" component={Order} />
+        <Route path="/liveOrders" component={LiveOrders} />
       </Switch>
       <Footer />
     </Router>

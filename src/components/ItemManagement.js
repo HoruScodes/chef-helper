@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Table from "./TableComponent";
 import { getAllItems, addItem } from "../api/api";
+import { useHistory } from "react-router";
 
 const ItemManagement = () => {
+  const history = useHistory();
   const [error, setErrorMessage] = useState("");
   const [data, setData] = useState({});
   const [tableData, setTableData] = useState({});
@@ -58,6 +60,7 @@ const ItemManagement = () => {
       if (error.length === 0) {
         //add item to db
         const res = await addItem(data);
+        history.go(0);
       }
     }
   };

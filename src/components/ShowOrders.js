@@ -1,25 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { arrayBufferToBase64 } from "../js/script";
 import { createOrder, getAllItems } from "../api/api";
+import LiveOrders from "./LiveOrders";
 
 const ShowOrders = (props) => {
   let buffer, base64Flag, imageStr;
   let subTotal = 0;
   const [value, setValue] = useState(0);
-  const [ingrediets, setIngredients] = useState();
+  // const [ingrediets, setIngredients] = useState();
   const [order, setOrder] = useState();
-
-  useEffect(() => {
-    const fetchApiData = async () => {
-      let items = {};
-      const { data } = await getAllItems();
-      data.forEach((item) => {
-        items[item.id] = item.name;
-      });
-      setIngredients(items);
-    };
-    fetchApiData();
-  }, []);
 
   const handleInputChange = (e, item) => {
     item.quantity = parseInt(e.target.value);
@@ -40,35 +29,7 @@ const ShowOrders = (props) => {
 
   return (
     <div>
-      {order &&
-        Object.keys(order)
-          .sort((a, b) => b - a)
-          .map((time) => {
-            return (
-              <div>
-                {order[time].map((item) => {
-                  return (
-                    <div key={item.itemId}>
-                      <h1>
-                        {" "}
-                        itemId : {item.itemId} , item Name :{" "}
-                        {ingrediets[item.itemId]} , item Quantity {item.qty}
-                      </h1>
-                    </div>
-                  );
-                })}
-              </div>
-            );
-            // currItem = order[time];
-            // currItem.map((item) => {π
-            //   return (
-            //     <div key={item.itemId}>
-            //       <h1>{item.itemId}</h1>
-            //       <h2>{item.qty}</h2>
-            //     </div>
-            //   );
-            // });
-          })}
+      <LiveOrders order={order} />
       <h1>Orders</h1>
 
       <div className="shopping-cart">

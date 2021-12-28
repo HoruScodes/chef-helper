@@ -83,6 +83,18 @@ export const addMenuItem = async (data) => {
   }
 };
 
+export const deleteItem = async (data) => {
+  const deleteItemApiUrl = apiUrl + "/item/deleteIngredient";
+  try {
+    const res = await axios.post(deleteItemApiUrl, {
+      id: data,
+    });
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const createOrder = async (orderData) => {
   const createOrder = apiUrl + "/order/createOrder";
   try {

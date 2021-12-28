@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
+import { useHistory } from "react-router";
 import makeAnimated from "react-select/animated";
 import { getAllItems, addMenuItem, getAllMenuItems } from "../api/api";
 
 const animatedComponents = makeAnimated();
 
 const AddItem = () => {
+  const history = useHistory();
   const [options, setOptions] = useState([]);
   const [newItem, setNewItem] = useState({
     name: "",
@@ -55,6 +57,7 @@ const AddItem = () => {
     formData.append("ingredients", newItem.ingredients);
     formData.append("type", newItem.type);
     const saveItemRes = await addMenuItem(formData);
+    history.go(0);
   };
 
   return (

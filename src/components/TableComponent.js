@@ -1,8 +1,15 @@
 import React, { useState } from "react";
+import { deleteItem } from "../api/api";
+import { useHistory } from "react-router";
 
 const Table = ({ data: { data } }) => {
-  const handleClick = (e) => {
+  const history = useHistory();
+
+  const handleClick = async (e) => {
     e.preventDefault();
+    console.log(e.target.id);
+    await deleteItem(e.target.id);
+    history.go(0);
   };
   return (
     <table className={`wrapper container container-pall`}>
@@ -22,7 +29,11 @@ const Table = ({ data: { data } }) => {
               <td className="cell">{elem["timeToPrep"]}</td>
               <td className="cell">{elem["type"]}</td>
               <td className="cell">
-                <button id={elem["_id"]} onClick={handleClick}>
+                <button
+                  className={`delete`}
+                  id={elem["_id"]}
+                  onClick={handleClick}
+                >
                   Delete This Item
                 </button>
               </td>

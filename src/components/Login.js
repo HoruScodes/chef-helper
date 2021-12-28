@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { loginUser, createCookieInHour, getCookie } from "../api/api";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Redirect } from "react-router";
 import { useHistory } from "react-router";
 
 const Login = ({ setusername }) => {
@@ -84,29 +83,3 @@ const Login = ({ setusername }) => {
 };
 
 export default Login;
-
-{
-  /* <form className="login__form">
-            <div className="login__input">
-              <label>Email:</label>
-              <input onChange={handleChange} name="email" type="email"></input>
-            </div>
-            <div className="login__input">
-              <label>Password:</label>
-              <input
-                onChange={handleChange}
-                name="password"
-                type="password"
-              ></input>
-            </div>
-            <div className="login__input">
-              <button type="submit" onClick={callloginUserApi} className="btn">
-                Login
-              </button>
-            </div>
-            <div className="login__input">
-              <a href="/register">New User/ Register</a>
-            </div>
-            <label>{errorMessage}</label>
-          </form> */
-}
