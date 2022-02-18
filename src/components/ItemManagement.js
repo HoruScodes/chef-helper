@@ -8,8 +8,8 @@ const ItemManagement = () => {
   const [error, setErrorMessage] = useState("");
   const [data, setData] = useState({});
   const [tableData, setTableData] = useState({});
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setData({ ...data, [name]: value });
   };
 
