@@ -15,8 +15,8 @@ const ItemManagement = () => {
 
   useEffect(() => {
     const fetchApiData = async () => {
-      const fetchAllItem = await getAllItems();
-      setTableData(fetchAllItem);
+      const fetchAllItems = await getAllItems();
+      setTableData(fetchAllItems);
     };
     fetchApiData();
   }, []);
